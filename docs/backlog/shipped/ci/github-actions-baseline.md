@@ -1,9 +1,12 @@
 ---
 id: ci/github-actions-baseline
 kind: brief
-title: Add a GitHub Actions workflow that runs the README check on every push and pull request
-description: Add .github/workflows/ci.yml that runs sh tests/check_readme.sh on pushes to main and on every pull request, so changes no longer ship without an automated check.
-status: active
+title: Add a GitHub Actions workflow that runs the README check on every push and
+  pull request
+description: Add .github/workflows/ci.yml that runs sh tests/check_readme.sh on pushes
+  to main and on every pull request, so changes no longer ship without an automated
+  check.
+status: shipped
 cluster: ci
 effort: 1h
 priority: immediate_blocker
@@ -12,19 +15,25 @@ tier: null
 captured: 2026-11-06
 trigger: null
 dependencies:
-  - testing/readme-check
+- testing/readme-check
 done_when:
-  - test -f .github/workflows/ci.yml
-  - grep -q 'sh tests/check_readme.sh' .github/workflows/ci.yml
-  - grep -q 'pull_request' .github/workflows/ci.yml
-  - git diff --name-only origin/main...HEAD | grep -v -E '^\.github/workflows/ci\.yml$' | wc -l | grep -qx ' *0'
+- test -f .github/workflows/ci.yml
+- grep -q 'sh tests/check_readme.sh' .github/workflows/ci.yml
+- grep -q 'pull_request' .github/workflows/ci.yml
+- git diff --name-only origin/main...HEAD | grep -v -E '^\.github/workflows/ci\.yml$'
+  | wc -l | grep -qx ' *0'
 schema_version: 1
 qa_capability_score: 15
 scorer_used: api
 scored_at: '2026-11-06T16:29:43.522030+00:00'
 score: 0.88
 qa_score: 20
+shipped: '2026-11-06T19:49:07.978639'
+provenance:
+  commit: 7ac6466a6d81749df855e0f98551ab211c6130db
+  pr: 6
 ---
+
 
 ## Why
 The first read found no CI configuration in orbitgatetest1/gate-test: changes reach main with no automated check. testing/readme-check adds the repo's first test, `tests/check_readme.sh`. This brief runs it on GitHub for every push to main and every pull request, so a broken README.md shows a red check before merge.
