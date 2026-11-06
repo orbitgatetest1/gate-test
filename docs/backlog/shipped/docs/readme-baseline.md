@@ -2,8 +2,10 @@
 id: docs/readme-baseline
 kind: brief
 title: Give README.md a stable baseline with purpose, test and CI sections
-description: Replace the one-line README.md with a short stable structure (purpose, how to run the check, CI) so it stops changing in every commit, and keep tests/check_readme.sh passing.
-status: active
+description: Replace the one-line README.md with a short stable structure (purpose,
+  how to run the check, CI) so it stops changing in every commit, and keep tests/check_readme.sh
+  passing.
+status: shipped
 cluster: docs
 effort: 1h
 priority: deferred
@@ -12,20 +14,26 @@ tier: null
 captured: 2026-11-06
 trigger: null
 dependencies:
-  - testing/readme-check
+- testing/readme-check
 done_when:
-  - sh tests/check_readme.sh
-  - grep -qx '## Purpose' README.md
-  - grep -qx '## Running the check' README.md
-  - grep -qx '## Continuous integration' README.md
-  - git diff --name-only origin/main...HEAD | grep -v -E '^README\.md$' | wc -l | grep -qx ' *0'
+- sh tests/check_readme.sh
+- grep -qx '## Purpose' README.md
+- grep -qx '## Running the check' README.md
+- grep -qx '## Continuous integration' README.md
+- git diff --name-only origin/main...HEAD | grep -v -E '^README\.md$' | wc -l | grep
+  -qx ' *0'
 schema_version: 1
 qa_capability_score: 15
 scorer_used: api
 scored_at: '2026-11-06T16:29:22.305320+00:00'
 score: 0.87
 qa_score: 19
+shipped: '2026-11-06T20:49:53.078525'
+provenance:
+  commit: 4a8f34cda328b90bdb27828bffd6defe16a9b783
+  pr: 9
 ---
+
 
 ## Why
 README.md is the only file in orbitgatetest1/gate-test and changed in 100% of commits. Today it holds only `# gate-test`. With no structure, every change rewrites it. A fixed set of sections gives later changes a defined place to go, and documents how to run the check added by testing/readme-check.
