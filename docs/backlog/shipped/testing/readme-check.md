@@ -2,8 +2,10 @@
 id: testing/readme-check
 kind: brief
 title: Add a shell test that checks README.md structure
-description: Add tests/check_readme.sh, a dependency-free POSIX shell test that fails when README.md is missing, has the wrong title, or lacks a trailing newline, and fix README.md so it passes.
-status: active
+description: Add tests/check_readme.sh, a dependency-free POSIX shell test that fails
+  when README.md is missing, has the wrong title, or lacks a trailing newline, and
+  fix README.md so it passes.
+status: shipped
 cluster: testing
 effort: 1h
 priority: immediate_blocker
@@ -13,16 +15,22 @@ captured: 2026-11-06
 trigger: null
 dependencies: []
 done_when:
-  - sh tests/check_readme.sh
-  - test "$(tail -c 1 README.md | od -An -c | tr -d ' ')" = '\n'
-  - git diff --name-only origin/main...HEAD | grep -v -E '^(tests/check_readme\.sh|README\.md)$' | wc -l | grep -qx ' *0'
+- sh tests/check_readme.sh
+- test "$(tail -c 1 README.md | od -An -c | tr -d ' ')" = '\n'
+- git diff --name-only origin/main...HEAD | grep -v -E '^(tests/check_readme\.sh|README\.md)$'
+  | wc -l | grep -qx ' *0'
 schema_version: 1
 qa_capability_score: 15
 scorer_used: api
 scored_at: '2026-11-06T16:29:08.962199+00:00'
 score: 0.89
 qa_score: 20
+shipped: '2026-11-06T18:13:08.191866'
+provenance:
+  commit: 883a9cb0d8235a20694588fcc4fb07702891b3ad
+  pr: 4
 ---
+
 
 ## Why
 orbitgatetest1/gate-test has one tracked file, README.md, and no tests. README.md changed in 100% of commits (1 of 1 in the last 90 days) and nothing checks it. Today README.md is 11 bytes, `# gate-test`, with no trailing newline. A small test gives the repo its first automated check and a command CI can run (see ci/github-actions-baseline).
